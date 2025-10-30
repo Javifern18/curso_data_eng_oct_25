@@ -22,7 +22,7 @@ Tu equipo ha oído hablar de las tablas dinámicas y espera que utilices estas p
 
 Ayer, ingestábamos en nuestra capa Silver utilizando un STREAM y dos TASKS:
 
-- El stream captura los cambios en la tabla ORDERS_HIST de BRONZE (CURSO_DATA_ENGINEERING_2024) y desencadena la TAREA PADRE.
+- El stream captura los cambios en la tabla ORDERS_HIST de BRONZE (CURSO_DATA_ENGINEERING_2025) y desencadena la TAREA PADRE.
 - La TAREA PADRE mergea la información del stream con la tabla de ORDERS en Silver de nuestra BBDD.
 - La TAREA HIJA, se ejecuta después de la PADRE y recrea una tabla agregada en Gold cuyo origen de información es la tabla ORDERS de Silver que acaba de ser mergeada.
 
@@ -30,7 +30,7 @@ Ayer, ingestábamos en nuestra capa Silver utilizando un STREAM y dos TASKS:
 
 ### a) Capa Silver
 
-En esta etapa, debes crear 1 tabla dinámica SILVER.DT_ORDERS para procesar de manera automática e incremental los datos que llegan a la tabla ORDERS_HIST de bronze de la base de datos centralizada (**curso_snowflake_de_2024**). Utilizarás el warehouse WH_CURSO_DATA_ENGINEERING y deberás configurar un **LAG** de tal manera que DT_ORDERS se actualice cuando las tablas dinámicas que crearemos en la capa **GOLD** lo necesiten (ya que dependen entre sí).
+En esta etapa, debes crear 1 tabla dinámica SILVER.DT_ORDERS para procesar de manera automática e incremental los datos que llegan a la tabla ORDERS_HIST de bronze de la base de datos centralizada (**curso_snowflake_de_2025**). Utilizarás el warehouse WH_CURSO_DATA_ENGINEERING y deberás configurar un **LAG** de tal manera que DT_ORDERS se actualice cuando las tablas dinámicas que crearemos en la capa **GOLD** lo necesiten (ya que dependen entre sí).
 
 ```sql
 SELECT
@@ -48,7 +48,7 @@ SELECT
         TRACKING_ID::varchar(50) AS TRACKING_ID,
         STATUS::varchar(20) AS STATUS,
         TIMESTAMPDIFF(HOUR, created_at, delivered_at) AS DELIVERY_TIME_HOURS
-    FROM curso_data_engineering_2024.bronze.orders_hist
+    FROM curso_data_engineering_2025.bronze.orders_hist
 ```
 
 **Si nos fijamos, en esta última SELECT no estamos teniendo en cuenta el MERGE que hicimos ayer... Sería bueno tener en cuenta eso y quedarnos solo con los ORDER_ID más recientes.**
